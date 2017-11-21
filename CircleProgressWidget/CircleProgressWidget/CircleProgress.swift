@@ -28,7 +28,11 @@ class CircleProgress: UIView {
     }
     
     func prepare() {
-        
+        //TODO: add rect witch should me square
+        let width = self.frame.width
+        let heigth = self.frame.height
+        let newDimension = min(width, heigth)
+        self.frame = CGRect(x: 0, y: 0, width: newDimension, height: newDimension)
     }
 
 }
