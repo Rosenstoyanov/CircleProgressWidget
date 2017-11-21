@@ -33,6 +33,56 @@ class CircleProgress: UIView {
         let heigth = self.frame.height
         let newDimension = min(width, heigth)
         self.frame = CGRect(x: 0, y: 0, width: newDimension, height: newDimension)
+        
+        let background = CALayer()
+        background.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
+        background.backgroundColor = black.cgColor
+        self.layer.addSublayer(background)
+        let center = CGPoint(x: newDimension/2,y: newDimension/2)
+        let radius = CGFloat(newDimension/2)
+        
+        drawCircleInNewLayer(circleCenter: center, radius: radius, circleColor: blue.cgColor)
+        
+        drawCircleInNewLayer(circleCenter: center, radius: radius - 10, circleColor: darkGray.cgColor)
+        
+        drawCircleInNewLayer(circleCenter: center, radius: radius - 20, circleColor: gray.cgColor)
+        
+//        let layer = CAShapeLayer()
+//        drawArcInLayer(circleCenter: center, radius: radius - 20, circleColor: lightBlue.cgColor, startAngle: CGFloat(140).degrees(), endAngle: CGFloat(122 / (radius - 25)), layer: layer)
+//        self.layer.addSublayer(layer)
+        
+        drawCircleWithLineDashesInLayer(circleCenter: center, radius: radius - 25, dashColor: darkRed.cgColor, startAngle: CGFloat(140).degrees(), endAngle: CGFloat(40).degrees(), lineWidth: 10, lineDashPattern: [0.0, 30.5])
+        
+        drawCircleWithLineDashesInLayer(circleCenter: center, radius: radius - 25, dashColor: black.cgColor, startAngle: CGFloat(140).degrees(), endAngle: CGFloat(40).degrees(), lineWidth: 20, lineDashPattern: [0.0, 122])
+        
+        print("radius: \(radius - 25) sin: \(122 / (radius - 25))")
+        drawCircleInNewLayer(circleCenter: center, radius: CGFloat(15), circleColor: lightBlue.cgColor)
+    }
+    
+    func drawCircleInNewLayer(circleCenter: CGPoint, radius: CGFloat, circleColor: CGColor) {
+        let circleLayer = CAShapeLayer()
+        drawArcInLayer(circleCenter: circleCenter, radius: radius, circleColor: circleColor, startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), layer: circleLayer)
+        self.layer.addSublayer(circleLayer)
+    }
+    
+    func drawArcInLayer(circleCenter: CGPoint, radius: CGFloat, circleColor: CGColor, startAngle: CGFloat, endAngle: CGFloat, layer: CAShapeLayer) {
+        let arcPath = UIBezierPath(arcCenter: circleCenter, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+        layer.path = arcPath.cgPath
+        layer.fillColor = circleColor
+    }
+    
+    func drawCircleWithLineDashesInLayer(circleCenter: CGPoint, radius: CGFloat, dashColor: CGColor, startAngle: CGFloat, endAngle: CGFloat, lineWidth: CGFloat, lineDashPattern: [NSNumber]) {
+        let layer = CAShapeLayer()
+        let arcPath = UIBezierPath(arcCenter: circleCenter, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+        //        let  dashes: [ CGFloat ] = [ 15.0, 20.0 ]
+        //        arcPath.setLineDash(dashes, count: dashes.count, phase: 0.0)
+        layer.path = arcPath.cgPath
+        layer.strokeColor = dashColor
+        layer.lineWidth = lineWidth //10
+        //        layer.lineDashPhase = 10
+        layer.fillColor = UIColor.clear.cgColor
+        layer.lineDashPattern = lineDashPattern //[ 0.0, 10.0 ]
+        self.layer.addSublayer(layer)
     }
 
 }
