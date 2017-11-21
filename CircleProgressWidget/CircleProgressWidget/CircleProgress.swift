@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+@IBDesignable
 class CircleProgress: UIView {
     let blue = UIColor(hex: "22b4e7")
     let lightBlue = UIColor(hex: "13b6f1")
@@ -17,14 +17,37 @@ class CircleProgress: UIView {
     let ligthRed = UIColor(hex: "e05011")
     let black = UIColor(hex: "000000")
     
+    var wigetCenter: CGPoint
+    var radius: CGFloat
+    
     override init(frame: CGRect) {
+        wigetCenter = CGPoint(x: 0.0, y: 0.0)
+        radius = 0.0
         super.init(frame: frame)
         prepare()
     }
     
     required init?(coder aDecoder: NSCoder) {
+        wigetCenter = CGPoint(x: 0.0, y: 0.0)
+        radius = 0.0
         super.init(coder: aDecoder)
         prepare()
+    }
+    
+    func drawFirstBackgroundCircle(color: CGColor) {
+        drawCircleInNewLayer(circleCenter: wigetCenter, radius: radius, circleColor: color)
+    }
+    
+    func drawSecondBackgroundCircle(color: CGColor) {
+        drawCircleInNewLayer(circleCenter: wigetCenter, radius: radius - 10, circleColor: color)
+    }
+    
+    func drawThirthBackgroundCircle(color: CGColor) {
+        drawCircleInNewLayer(circleCenter: wigetCenter, radius: radius - 20, circleColor: color)
+    }
+    
+    func drawLastSmallBlueCircle(color: CGColor) {
+        drawCircleInNewLayer(circleCenter: wigetCenter, radius: CGFloat(15), circleColor: color)
     }
     
     func prepare() {
@@ -38,25 +61,26 @@ class CircleProgress: UIView {
         background.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
         background.backgroundColor = black.cgColor
         self.layer.addSublayer(background)
-        let center = CGPoint(x: newDimension/2,y: newDimension/2)
-        let radius = CGFloat(newDimension/2)
         
-        drawCircleInNewLayer(circleCenter: center, radius: radius, circleColor: blue.cgColor)
+        wigetCenter = CGPoint(x: newDimension/2,y: newDimension/2)
+        radius = CGFloat(newDimension/2)
         
-        drawCircleInNewLayer(circleCenter: center, radius: radius - 10, circleColor: darkGray.cgColor)
+        drawFirstBackgroundCircle(color: blue.cgColor)
         
-        drawCircleInNewLayer(circleCenter: center, radius: radius - 20, circleColor: gray.cgColor)
+        drawSecondBackgroundCircle(color: darkGray.cgColor)
+        
+        drawThirthBackgroundCircle(color: gray.cgColor)
         
 //        let layer = CAShapeLayer()
 //        drawArcInLayer(circleCenter: center, radius: radius - 20, circleColor: lightBlue.cgColor, startAngle: CGFloat(140).degrees(), endAngle: CGFloat(122 / (radius - 25)), layer: layer)
 //        self.layer.addSublayer(layer)
         
-        drawCircleWithLineDashesInLayer(circleCenter: center, radius: radius - 25, dashColor: darkRed.cgColor, startAngle: CGFloat(140).degrees(), endAngle: CGFloat(40).degrees(), lineWidth: 10, lineDashPattern: [0.0, 30.5])
+        drawCircleWithLineDashesInLayer(circleCenter: wigetCenter, radius: radius - 25, dashColor: darkRed.cgColor, startAngle: CGFloat(140).degrees(), endAngle: CGFloat(40).degrees(), lineWidth: 10, lineDashPattern: [0.0, 30.5])
         
-        drawCircleWithLineDashesInLayer(circleCenter: center, radius: radius - 25, dashColor: black.cgColor, startAngle: CGFloat(140).degrees(), endAngle: CGFloat(40).degrees(), lineWidth: 20, lineDashPattern: [0.0, 122])
+        drawCircleWithLineDashesInLayer(circleCenter: wigetCenter, radius: radius - 25, dashColor: black.cgColor, startAngle: CGFloat(140).degrees(), endAngle: CGFloat(40).degrees(), lineWidth: 20, lineDashPattern: [0.0, 122])
         
         print("radius: \(radius - 25) sin: \(122 / (radius - 25))")
-        drawCircleInNewLayer(circleCenter: center, radius: CGFloat(15), circleColor: lightBlue.cgColor)
+        drawLastSmallBlueCircle(color: lightBlue.cgColor)
     }
     
     func drawCircleInNewLayer(circleCenter: CGPoint, radius: CGFloat, circleColor: CGColor) {
@@ -82,6 +106,20 @@ class CircleProgress: UIView {
         //        layer.lineDashPhase = 10
         layer.fillColor = UIColor.clear.cgColor
         layer.lineDashPattern = lineDashPattern //[ 0.0, 10.0 ]
+        self.layer.addSublayer(layer)
+    }
+    
+    func drawTriangle(firstPoint: CGPoint, secondPoint: CGPoint, thirthPoint: CGPoint, color: CGColor) {
+        let path = UIBezierPath()
+        path.move(to: firstPoint)
+        path.addLine(to: secondPoint)
+        path.addLine(to: thirthPoint)
+        path.addLine(to: firstPoint)
+        path.close()
+        
+        let layer = CAShapeLayer();
+        layer.path = path.cgPath
+        layer.fillColor = color
         self.layer.addSublayer(layer)
     }
 
