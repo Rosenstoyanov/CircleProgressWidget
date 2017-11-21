@@ -20,6 +20,16 @@ class CircleProgress: UIView {
 
 }
 
+extension CGFloat {
+    func degrees() -> CGFloat {
+        return self * .pi / 180
+    }
+    
+    init(degrees: CGFloat) {
+        self = degrees.degrees()
+    }
+}
+
 extension FloatingPoint {
     var degreesToRadians: Self { return self * .pi / 180 }
     var radiansToDegrees: Self { return self * 180 / .pi }
