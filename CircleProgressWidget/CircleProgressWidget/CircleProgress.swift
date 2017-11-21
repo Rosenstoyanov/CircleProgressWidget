@@ -20,6 +20,11 @@ class CircleProgress: UIView {
 
 }
 
+extension FloatingPoint {
+    var degreesToRadians: Self { return self * .pi / 180 }
+    var radiansToDegrees: Self { return self * 180 / .pi }
+}
+
 extension UIColor {
     convenience init(hex: String) {
         let scanner = Scanner(string: hex)
