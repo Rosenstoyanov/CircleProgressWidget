@@ -9,14 +9,27 @@
 import UIKit
 
 class CircleProgress: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    let blue = UIColor(hex: "22b4e7")
+    let lightBlue = UIColor(hex: "13b6f1")
+    let gray = UIColor(hex: "f0f0f0")
+    let darkGray = UIColor(hex: "d2d2d0")
+    let darkRed = UIColor(hex: "bb430e")
+    let ligthRed = UIColor(hex: "e05011")
+    let black = UIColor(hex: "000000")
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        prepare()
     }
-    */
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        prepare()
+    }
+    
+    func prepare() {
+        
+    }
 
 }
 
