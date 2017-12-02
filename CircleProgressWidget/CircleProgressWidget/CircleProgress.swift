@@ -102,7 +102,7 @@ class CircleProgress: UIView {
         
         drawArcs(center: wigetCenter, radius: radius)
         
-//        drawaLines(center: wigetCenter, radius: radius, color: blue.cgColor)
+        drawaLines(center: wigetCenter, radius: radius, color: blue.cgColor)
         
         let layer = CAShapeLayer()
 //        15
@@ -148,7 +148,65 @@ class CircleProgress: UIView {
         
     }
     
-    
+    func drawaLines(center: CGPoint, radius: CGFloat, color: CGColor) {
+        
+        let circleEdjePoint = CGPoint(x: center.x, y: 20)
+        let circleSecondPointPoint = CGPoint(x: center.x, y: 40 )
+        
+        
+//        let sectors = [0, 52, 104, 156, 208, 260]
+        
+        let sectorsSizes = [0, 20, 40, 60, 80, 100]
+        
+
+        for itemSize in sectorsSizes {
+            let item = Int(Double(itemSize) * 2.6)
+            let myLayer = CAShapeLayer()
+            myLayer.frame = viewFrame
+            let path = UIBezierPath()
+            
+            path.move(to: circleEdjePoint)
+            path.addLine(to: circleSecondPointPoint)
+            path.close()
+            
+            myLayer.path = path.cgPath
+            myLayer.lineWidth = 1
+            myLayer.fillColor = color
+            myLayer.strokeColor = color
+            
+            var degreeRotation: Int
+            
+            if(220 - item < 120) {
+                degreeRotation = -(120 - item)
+            } else if (220 - item < 220) {
+                degreeRotation = 90 - (220 - item)
+            } else {
+                degreeRotation = 90 + ((220 - item) * -1)
+            }
+            
+            let textLayer = CATextLayer()
+            textLayer.frame = CGRect(x: center.x - 15, y: 45, width: 30, height: 25)
+            textLayer.string = "\(itemSize)"
+            textLayer.fontSize = 15
+            textLayer.alignmentMode = kCAAlignmentCenter
+            textLayer.foregroundColor = darkRed.cgColor
+            
+            let labelTransform = CATransform3DMakeRotation(CGFloat(degreeRotation * -1).degrees(), 0, 0, 1)
+            textLayer.transform = labelTransform
+            myLayer.addSublayer(textLayer)
+            
+            print("rotation \(degreeRotation)")
+            let startAngle = 140.0 + (Double(item) * 2.6)
+            let myTransf = CATransform3DMakeRotation(CGFloat(startAngle).degrees(), 0, 0, 1)
+            myLayer.transform = myTransf
+            
+            myLayer.path = path.cgPath
+            myLayer.fillColor = color
+            myLayer.strokeColor = color
+        
+            self.layer.addSublayer(myLayer)
+        }
+    }
     
     func drawCircleInNewLayer(circleCenter: CGPoint, radius: CGFloat, circleColor: CGColor) {
         let circleLayer = CAShapeLayer()
