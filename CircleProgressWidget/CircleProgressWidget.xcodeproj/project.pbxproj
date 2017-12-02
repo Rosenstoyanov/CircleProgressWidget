@@ -13,6 +13,7 @@
 		A00AFDE71FC4865600A1C3F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A00AFDE61FC4865600A1C3F1 /* Assets.xcassets */; };
 		A00AFDEA1FC4865600A1C3F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A00AFDE81FC4865600A1C3F1 /* LaunchScreen.storyboard */; };
 		A00AFDF21FC4897500A1C3F1 /* CircleProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00AFDF11FC4897500A1C3F1 /* CircleProgress.swift */; };
+		A04389D81FC9E5E200FD7DE7 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04389D71FC9E5E200FD7DE7 /* MyViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		A00AFDE91FC4865600A1C3F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A00AFDEB1FC4865600A1C3F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A00AFDF11FC4897500A1C3F1 /* CircleProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleProgress.swift; sourceTree = "<group>"; };
+		A04389D71FC9E5E200FD7DE7 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				A00AFDE81FC4865600A1C3F1 /* LaunchScreen.storyboard */,
 				A00AFDEB1FC4865600A1C3F1 /* Info.plist */,
 				A00AFDF11FC4897500A1C3F1 /* CircleProgress.swift */,
+				A04389D71FC9E5E200FD7DE7 /* MyViewController.swift */,
 			);
 			path = CircleProgressWidget;
 			sourceTree = "<group>";
@@ -77,6 +80,7 @@
 				A00AFDD81FC4865600A1C3F1 /* Sources */,
 				A00AFDD91FC4865600A1C3F1 /* Frameworks */,
 				A00AFDDA1FC4865600A1C3F1 /* Resources */,
+				A006BFCE1FCB831800F577F6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -134,6 +138,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A006BFCE1FCB831800F577F6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A00AFDD81FC4865600A1C3F1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -141,6 +161,7 @@
 			files = (
 				A00AFDE21FC4865600A1C3F1 /* ViewController.swift in Sources */,
 				A00AFDE01FC4865600A1C3F1 /* AppDelegate.swift in Sources */,
+				A04389D81FC9E5E200FD7DE7 /* MyViewController.swift in Sources */,
 				A00AFDF21FC4897500A1C3F1 /* CircleProgress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
