@@ -13,7 +13,6 @@
 		A00AFDE71FC4865600A1C3F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A00AFDE61FC4865600A1C3F1 /* Assets.xcassets */; };
 		A00AFDEA1FC4865600A1C3F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A00AFDE81FC4865600A1C3F1 /* LaunchScreen.storyboard */; };
 		A00AFDF21FC4897500A1C3F1 /* CircleProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00AFDF11FC4897500A1C3F1 /* CircleProgress.swift */; };
-		A04389D81FC9E5E200FD7DE7 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04389D71FC9E5E200FD7DE7 /* MyViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +24,6 @@
 		A00AFDE91FC4865600A1C3F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A00AFDEB1FC4865600A1C3F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A00AFDF11FC4897500A1C3F1 /* CircleProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleProgress.swift; sourceTree = "<group>"; };
-		A04389D71FC9E5E200FD7DE7 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,12 +58,11 @@
 			children = (
 				A00AFDDF1FC4865600A1C3F1 /* AppDelegate.swift */,
 				A00AFDE11FC4865600A1C3F1 /* ViewController.swift */,
+				A00AFDF11FC4897500A1C3F1 /* CircleProgress.swift */,
 				A00AFDE31FC4865600A1C3F1 /* Main.storyboard */,
 				A00AFDE61FC4865600A1C3F1 /* Assets.xcassets */,
 				A00AFDE81FC4865600A1C3F1 /* LaunchScreen.storyboard */,
 				A00AFDEB1FC4865600A1C3F1 /* Info.plist */,
-				A00AFDF11FC4897500A1C3F1 /* CircleProgress.swift */,
-				A04389D71FC9E5E200FD7DE7 /* MyViewController.swift */,
 			);
 			path = CircleProgressWidget;
 			sourceTree = "<group>";
@@ -161,7 +158,6 @@
 			files = (
 				A00AFDE21FC4865600A1C3F1 /* ViewController.swift in Sources */,
 				A00AFDE01FC4865600A1C3F1 /* AppDelegate.swift in Sources */,
-				A04389D81FC9E5E200FD7DE7 /* MyViewController.swift in Sources */,
 				A00AFDF21FC4897500A1C3F1 /* CircleProgress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

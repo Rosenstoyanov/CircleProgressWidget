@@ -7,12 +7,15 @@
 //
 
 import UIKit
+
 @IBDesignable
 class CircleProgress: UIView {
     let blue = UIColor(hex: "22b4e7")
     let lightBlue = UIColor(hex: "13b6f1")
+    let lighterBlue = UIColor(hex: "dee9eb")
     let gray = UIColor(hex: "f0f0f0")
     let darkGray = UIColor(hex: "d2d2d0")
+    let darkerGray = UIColor(hex: "598b98")
     let darkRed = UIColor(hex: "bb430e")
     let ligthRed = UIColor(hex: "e05011")
     let black = UIColor(hex: "000000")
@@ -20,11 +23,43 @@ class CircleProgress: UIView {
     var wigetCenter: CGPoint
     var radius: CGFloat
     var viewFrame: CGRect
+    let sectorsSizes = [0, 20, 40, 60, 80, 100]
     
+
     @IBInspectable
-    var firstArcColor: CGColor? {
+    var firstSectorColor: UIColor = UIColor(hex: "dee9eb") {
         didSet {
-            prepare();
+            prepare()
+        }
+    }
+    @IBInspectable
+    var secondSectorColor: UIColor = UIColor(hex: "22b4e7") {
+        didSet {
+            prepare()
+        }
+    }
+    @IBInspectable
+    var thirthSectorColor: UIColor = UIColor(hex: "598b98") {
+        didSet {
+            prepare()
+        }
+    }
+    @IBInspectable
+    var fourthSectorColor: UIColor = UIColor(hex: "bb430e") {
+        didSet {
+            prepare()
+        }
+    }
+    @IBInspectable
+    var fifthSectorColor: UIColor = UIColor(hex: "e05011") {
+        didSet {
+            prepare()
+        }
+    }
+    @IBInspectable
+    var arrowDegree: Int = 0 {
+        didSet {
+            prepare()
         }
     }
     
@@ -61,7 +96,6 @@ class CircleProgress: UIView {
     }
     
     func prepare() {
-        //TODO: add rect witch should me square
         let width = self.frame.width
         let heigth = self.frame.height
         let newDimension = min(width, heigth)
@@ -81,41 +115,24 @@ class CircleProgress: UIView {
         
         drawThirthBackgroundCircle(color: gray.cgColor)
         
-//        let layer = CAShapeLayer()
-//        drawArcInLayer(circleCenter: center, radius: radius - 20, circleColor: lightBlue.cgColor, startAngle: CGFloat(140).degrees(), endAngle: CGFloat(122 / (radius - 25)), layer: layer)
-//        self.layer.addSublayer(layer)
-        
-//        drawCircleWithLineDashesInLayer(circleCenter: wigetCenter, radius: radius - 25, dashColor: darkRed.cgColor, startAngle: CGFloat(140).degrees(), endAngle: CGFloat(40).degrees(), lineWidth: 10, lineDashPattern: [0.0, 30.5])
-//
-//        drawCircleWithLineDashesInLayer(circleCenter: wigetCenter, radius: radius - 25, dashColor: black.cgColor, startAngle: CGFloat(140).degrees(), endAngle: CGFloat(40).degrees(), lineWidth: 20, lineDashPattern: [0.0, 122])
-        
-        //360 / 8 = 45 each arc
-        //360 - 2*45 = 270
-        //360 - 45 = 315
-        //270 degrees to be splited in 6
-        // 1,45,90,135,180,225,270,270
-        //big arc starts from 180+45=225 ends at 360-45=315
-        
-//        let arcLayer = CAShapeLayer()
-//        drawStrokeArcInLayer(circleCenter: wigetCenter, radius: radius - 20, circleColor: ligthRed.cgColor, startAngle: CGFloat(0).degrees(), endAngle: CGFloat(220).degrees(), layer: arcLayer)
-//        self.layer.addSublayer(arcLayer)
-        
         drawArcs(center: wigetCenter, radius: radius)
         
         drawaLines(center: wigetCenter, radius: radius, color: blue.cgColor)
         
         let layer = CAShapeLayer()
-//        15
+        layer.frame = self.viewFrame
         let p1 = CGPoint(x: wigetCenter.x - 10, y: wigetCenter.y)
         let p2 = CGPoint(x: wigetCenter.x + 10, y: wigetCenter.y)
         let p3 = CGPoint(x: wigetCenter.x, y: wigetCenter.y - radius + 25)
         drawTriangle(firstPoint: p1, secondPoint: p2, thirthPoint: p3, color: lightBlue.cgColor, layer: layer)
+        let triangleTranfrom = CATransform3DMakeRotation(CGFloat(arrowDegree).radians(), 0, 0, 1)
+        layer.transform = triangleTranfrom
+        
+        
         drawLastSmallBlueCircle(color: lightBlue.cgColor)
     }
     
     func drawArcs(center: CGPoint, radius: CGFloat){
-        let sectorsSizes = [0, 20, 40, 60, 80, 100]
-        
         var start = -1;
         for (index, element) in sectorsSizes.enumerated() {
             if start != -1 {
@@ -127,20 +144,20 @@ class CircleProgress: UIView {
                 var color = darkRed.cgColor;
                 switch index {
                 case 1:
-                    color = darkRed.cgColor
+                    color = firstSectorColor.cgColor
                 case 2:
-                    color = blue.cgColor
+                    color = secondSectorColor.cgColor
                 case 3:
-                    color = ligthRed.cgColor
+                    color = thirthSectorColor.cgColor
                 case 4:
-                    color = blue.cgColor
+                    color = fourthSectorColor.cgColor
                 case 5:
-                    color = darkRed.cgColor
+                    color = fifthSectorColor.cgColor
                 default:
                     color = darkRed.cgColor
                 }
                 let layer = CAShapeLayer()
-                drawStrokeArcInLayer(circleCenter: wigetCenter, radius: radius - 25, circleColor: color, startAngle: CGFloat(startAngle).degrees(), endAngle: CGFloat(end).degrees(), layer: layer)
+                drawStrokeArcInLayer(circleCenter: wigetCenter, radius: radius - 25, circleColor: color, startAngle: CGFloat(startAngle).radians(), endAngle: CGFloat(end).radians(), layer: layer)
                 self.layer.addSublayer(layer)
             }
             start = element
@@ -153,12 +170,6 @@ class CircleProgress: UIView {
         let circleEdjePoint = CGPoint(x: center.x, y: 20)
         let circleSecondPointPoint = CGPoint(x: center.x, y: 40 )
         
-        
-//        let sectors = [0, 52, 104, 156, 208, 260]
-        
-        let sectorsSizes = [0, 20, 40, 60, 80, 100]
-        
-
         for itemSize in sectorsSizes {
             let item = Int(Double(itemSize) * 2.6)
             let myLayer = CAShapeLayer()
@@ -174,15 +185,7 @@ class CircleProgress: UIView {
             myLayer.fillColor = color
             myLayer.strokeColor = color
             
-            var degreeRotation: Int
-            
-            if(220 - item < 120) {
-                degreeRotation = -(120 - item)
-            } else if (220 - item < 220) {
-                degreeRotation = 90 - (220 - item)
-            } else {
-                degreeRotation = 90 + ((220 - item) * -1)
-            }
+            let degreeRotation: Int = (130 - item) * -1
             
             let textLayer = CATextLayer()
             textLayer.frame = CGRect(x: center.x - 15, y: 45, width: 30, height: 25)
@@ -191,13 +194,12 @@ class CircleProgress: UIView {
             textLayer.alignmentMode = kCAAlignmentCenter
             textLayer.foregroundColor = darkRed.cgColor
             
-            let labelTransform = CATransform3DMakeRotation(CGFloat(degreeRotation * -1).degrees(), 0, 0, 1)
+            let labelTransform = CATransform3DMakeRotation(CGFloat(degreeRotation * -1).radians(), 0, 0, 1)
             textLayer.transform = labelTransform
             myLayer.addSublayer(textLayer)
             
             print("rotation \(degreeRotation)")
-            let startAngle = 140.0 + (Double(item) * 2.6)
-            let myTransf = CATransform3DMakeRotation(CGFloat(startAngle).degrees(), 0, 0, 1)
+            let myTransf = CATransform3DMakeRotation(CGFloat(degreeRotation).radians(), 0, 0, 1)
             myLayer.transform = myTransf
             
             myLayer.path = path.cgPath
@@ -217,7 +219,6 @@ class CircleProgress: UIView {
     
     func drawStrokeArcInLayer(circleCenter: CGPoint, radius: CGFloat, circleColor: CGColor, startAngle: CGFloat, endAngle: CGFloat, layer: CAShapeLayer) {
         let arcPath = UIBezierPath(arcCenter: circleCenter, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
-//        arcPath.lineWidth = 140
         
         layer.lineWidth = 15
         layer.path = arcPath.cgPath
@@ -261,18 +262,13 @@ class CircleProgress: UIView {
 }
 
 extension CGFloat {
-    func degrees() -> CGFloat {
+    func radians() -> CGFloat {
         return self * .pi / 180
     }
     
     init(degrees: CGFloat) {
-        self = degrees.degrees()
+        self = degrees.radians()
     }
-}
-
-extension FloatingPoint {
-    var degreesToRadians: Self { return self * .pi / 180 }
-    var radiansToDegrees: Self { return self * 180 / .pi }
 }
 
 extension UIColor {
